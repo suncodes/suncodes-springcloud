@@ -141,8 +141,8 @@ public interface DeptDao {
 
 mybatis/mapper/DeptMapper.xml
 ```xml
-<mapper namespace="suncodes.springcloud.provider.dept.rest.dao.DeptDao">
-    <select id="findById" resultType="suncodes.springcloud.api.entities.Dept" parameterType="Long">
+<mapper namespace="provider.dept.rest.dao.DeptDao">
+    <select id="findById" resultType="api.entities.Dept" parameterType="Long">
 		select dept_no,dept_name,db_source from dept where dept_no=#{deptNo};
 	</select>
     <select id="findAll" resultType="Dept">

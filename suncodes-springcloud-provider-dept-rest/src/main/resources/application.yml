@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
   config-location: classpath:mybatis/SqlMapConfig.xml
-  type-aliases-package: suncodes.springcloud.api.entities    # 所有Entity别名类所在包
+  type-aliases-package: api.entities    # 所有Entity别名类所在包
   mapper-locations:
     - classpath:mybatis/mapper/**/*.xml
 
