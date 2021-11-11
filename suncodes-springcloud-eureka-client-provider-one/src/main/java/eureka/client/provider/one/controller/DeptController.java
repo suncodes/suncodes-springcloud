@@ -1,6 +1,10 @@
 package eureka.client.provider.one.controller;
 
 import api.entities.Dept;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Application;
+import com.netflix.discovery.shared.Applications;
 import eureka.client.provider.one.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -30,7 +34,9 @@ public class DeptController {
         return service.list();
     }
 
-
+    /**
+     * 使用 SpringCloud 的 DiscoveryClient
+     */
     @Autowired
     private DiscoveryClient client;
 
@@ -47,5 +53,25 @@ public class DeptController {
             }
         }
         return this.client;
+    }
+
+    /**
+     * http://localhost:8001/dept/eurekaClient
+     * 使用原始的 Netflix EurekaClient
+     */
+    @Autowired
+    private EurekaClient eurekaClient;
+
+    @RequestMapping(value = "/dept/eurekaClient", method = RequestMethod.GET)
+    public String serviceUrl() {
+        Applications applications = eurekaClient.getApplications();
+        List<Application> registeredApplications = applications.getRegisteredApplications();
+        for (Application registeredApplication : registeredApplications) {
+            List<InstanceInfo> instances = registeredApplication.getInstances();
+            for (InstanceInfo instance : instances) {
+                System.out.println(instance);
+            }
+        }
+        return "success";
     }
 }
