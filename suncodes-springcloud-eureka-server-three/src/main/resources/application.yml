@@ -1,9 +1,9 @@
 server:
-  port: 7001
+  port: 7003
 
 eureka:
   instance:
-    hostname: eureka7001.com #eureka服务端的实例名称
+    hostname: eureka7003.com #eureka服务端的实例名称
   client:
     # false表示不向注册中心注册自己
     register-with-eureka: false
@@ -16,4 +16,4 @@ eureka:
       defaultZone: http://${eureka-hostname}:${eureka-port[0]}/eureka/,http://${eureka-hostname}:${eureka-port[1]}/eureka/
 
 eureka-hostname: localhost
-eureka-port: [7002,7003]
+eureka-port: [7001,7002]

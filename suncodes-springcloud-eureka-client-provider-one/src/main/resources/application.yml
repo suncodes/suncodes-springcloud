@@ -19,12 +19,16 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://${eureka-hostname}:${eureka-port[0]}/eureka/,http://${eureka-hostname}:${eureka-port[1]}/eureka/,http://${eureka-hostname}:${eureka-port[2]}/eureka/
   # 实例名称
   instance:
     instance-id: instance-provider-7001
     ## 显示IP
     prefer-ip-address: true
+
+eureka-hostname: localhost
+eureka-port: [7001,7002,7003]
+
 
 info:
   app.name: suncodes-micro-service-cloud

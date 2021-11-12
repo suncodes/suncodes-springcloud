@@ -13,6 +13,8 @@
         <module>suncodes-springcloud-consumer-dept-rest</module>
         <module>suncodes-springcloud-eureka-server-one</module>
         <module>suncodes-springcloud-eureka-client-provider-one</module>
+        <module>suncodes-springcloud-eureka-server-two</module>
+        <module>suncodes-springcloud-eureka-server-three</module>
     </modules>
     <packaging>pom</packaging>
 
