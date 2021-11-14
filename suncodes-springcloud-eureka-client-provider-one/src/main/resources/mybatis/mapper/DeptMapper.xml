@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="provider.dept.rest.dao.DeptDao">
+<mapper namespace="eureka.client.provider.one.dao.DeptDao">
     <select id="findById" resultType="api.entities.Dept" parameterType="Long">
 		select dept_no,dept_name,db_source from dept where dept_no=#{deptNo};
 	</select>

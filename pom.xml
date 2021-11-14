@@ -15,6 +15,7 @@
         <module>suncodes-springcloud-eureka-client-provider-one</module>
         <module>suncodes-springcloud-eureka-server-two</module>
         <module>suncodes-springcloud-eureka-server-three</module>
+        <module>suncodes-springcloud-eureka-client-consumer-ribbon</module>
     </modules>
     <packaging>pom</packaging>
 
