@@ -1,9 +1,8 @@
-package eureka.client.consumer.ribbon;
+package eureka.client.consumer.loadbalancer;
 
-import eureka.client.consumer.ribbon.loadbalancer.MyRandomLoadBalancer;
+import eureka.client.consumer.loadbalancer.loadbalancer.MyRandomLoadBalancer;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.loadbalancer.core.RandomLoadBalancer;
 import org.springframework.cloud.loadbalancer.core.ReactorLoadBalancer;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;

@@ -1,7 +1,4 @@
-package eureka.client.consumer.ribbon.loadbalancer;
-
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+package eureka.client.consumer.loadbalancer.loadbalancer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -15,6 +12,8 @@ import org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBal
 import org.springframework.cloud.loadbalancer.core.SelectedInstanceCallback;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * 此类其实是抄的 RandomLoadBalancer
