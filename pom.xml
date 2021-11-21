@@ -19,6 +19,7 @@
         <module>suncodes-springcloud-eureka-client-provider-two</module>
         <module>suncodes-springcloud-eureka-client-provider-three</module>
         <module>suncodes-springcloud-eureka-client-consumer-loadbalancer</module>
+        <module>suncodes-springcloud-feign</module>
     </modules>
     <packaging>pom</packaging>
 
