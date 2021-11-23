@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/springcloud4?serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  config-location: classpath:mybatis/SqlMapConfig.xml
+  type-aliases-package: api.entities    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml
+
+server:
+  port: 8004
+
+#客户端注册进eureka服务列表内
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka-hostname}:${eureka-port[0]}/eureka/,http://${eureka-hostname}:${eureka-port[1]}/eureka/,http://${eureka-hostname}:${eureka-port[2]}/eureka/
+  # 实例名称
+  instance:
+    instance-id: instance-provider-hystrix-8004
+    ## 显示IP
+    prefer-ip-address: true
+
+eureka-hostname: localhost
+eureka-port: [7001,7002,7003]
+
+
+info:
+  app.name: suncodes-micro-service-cloud
+  company.name: www.suncodes.com
+#  build.artifactId: @project.artifactId@
+#  build.version: @project.version@
+  build.artifactId1: $project.artifactId$
+  build.version1: $project.version$
