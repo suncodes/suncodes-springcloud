@@ -1,7 +1,7 @@
 package eureka.client.consumer.feign.controller;
 
 import api.entities.Dept;
-import eureka.client.api.feign.DeptAPI;
+import eureka.client.api.feign.api.DeptAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
