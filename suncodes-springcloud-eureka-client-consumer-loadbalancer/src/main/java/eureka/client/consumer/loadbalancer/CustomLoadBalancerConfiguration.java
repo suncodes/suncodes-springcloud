@@ -11,6 +11,7 @@ import org.springframework.core.env.Environment;
 
 public class CustomLoadBalancerConfiguration {
 
+    // TODO 随意打开一个
 //    /**
 //     * 切换为LoadBalancer的其他内置策略
 //     * @param environment
