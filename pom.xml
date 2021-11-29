@@ -23,6 +23,7 @@
         <module>suncodes-springcloud-eureka-client-consumer-feign</module>
         <module>suncodes-springcloud-eureka-client-api-feign</module>
         <module>suncodes-springcloud-eureka-client-provider-hystrix</module>
+        <module>suncodes-springcloud-eureka-client-hystrix-turbine</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: hystrix-turbine
+server:
+  port: 8888
+
+turbine:
+  aggregator:
+    cluster-config: default
+  # 只有注册到 eureka 中的服务才能起作用，否则无法使用 turbine
+  app-config: PROVIDER,CUNSUMER-FEIGN
+  cluster-name-expression: new String("default")
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka-hostname}:${eureka-port[0]}/eureka/,http://${eureka-hostname}:${eureka-port[1]}/eureka/,http://${eureka-hostname}:${eureka-port[2]}/eureka/
+    register-with-eureka: false
+
+eureka-hostname: localhost
+eureka-port: [7001,7002,7003]

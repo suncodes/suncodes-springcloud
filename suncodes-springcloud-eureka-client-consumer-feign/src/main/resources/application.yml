@@ -1,3 +1,4 @@
+
 server:
   port: 80
 
@@ -14,3 +15,11 @@ eureka-port: [7001,7002,7003]
 feign:
   circuitbreaker:
     enabled: true
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "localhost"
+
+spring:
+  application:
+    name: cunsumer-feign

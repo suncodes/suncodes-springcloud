@@ -30,10 +30,13 @@ eureka-hostname: localhost
 eureka-port: [7001,7002,7003]
 
 
-info:
-  app.name: suncodes-micro-service-cloud
-  company.name: www.suncodes.com
-#  build.artifactId: @project.artifactId@
-#  build.version: @project.version@
-  build.artifactId1: $project.artifactId$
-  build.version1: $project.version$
+#info:
+#  app.name: suncodes-micro-service-cloud
+#  company.name: www.suncodes.com
+##  build.artifactId: @project.artifactId@
+##  build.version: @project.version@
+#  build.artifactId1: $project.artifactId$
+#  build.version1: $project.version$
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "localhost"
