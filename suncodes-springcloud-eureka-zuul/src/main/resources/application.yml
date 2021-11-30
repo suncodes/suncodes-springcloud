@@ -25,7 +25,7 @@ eureka-port: [7001,7002,7003]
 provider:
   ribbon:
     NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
-    listOfServers: http://localhost:8001,http://localhost:8002,http://localhost:8003,http://localhost:8004
+    listOfServers: http://localhost:8004
     ConnectTimeout: 1000
     ReadTimeout: 3000
     MaxTotalHttpConnections: 500
@@ -34,3 +34,14 @@ provider:
 ribbon:
   eureka:
     enabled: false
+
+# 路由访问映射规则
+zuul:
+  # 必须加引号，yml 的语法如此
+  ignored-services: "*"
+  routes:
+    p.serviceId: provider
+    p.path: /p/**
+    # 如果指定了 URL，则不再进行负载均衡，而是直接通过URL访问
+    #p.url: /IP地址
+  prefix: /scz
