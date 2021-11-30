@@ -1,0 +1,36 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: eureka-zuul
+
+#客户端注册进eureka服务列表内
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka-hostname}:${eureka-port[0]}/eureka/,http://${eureka-hostname}:${eureka-port[1]}/eureka/,http://${eureka-hostname}:${eureka-port[2]}/eureka/
+  instance:
+    instance-id: eureka-zuul
+    prefer-ip-address: true
+
+eureka-hostname: localhost
+eureka-port: [7001,7002,7003]
+
+# zuul 内置使用 ribbon 进行负载均衡
+# 无法更换 LoadBalancer，但是可以自定义 Ribbon 的均衡策略
+# 由于新版 SpringCloud 不支持 Ribbon，所以需要对 Ribbon 进行配置，不再从 eureka 中获取服务实例
+# 而是通过 配置文件，配置 服务实例 --- IP 对应关系，绕过 eureka。
+# 服务名：provider
+provider:
+  ribbon:
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    listOfServers: http://localhost:8001,http://localhost:8002,http://localhost:8003,http://localhost:8004
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
+# 禁止 Ribbon 从 eureka 中获取实例
+ribbon:
+  eureka:
+    enabled: false
