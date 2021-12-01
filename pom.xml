@@ -25,6 +25,7 @@
         <module>suncodes-springcloud-eureka-client-provider-hystrix</module>
         <module>suncodes-springcloud-eureka-client-hystrix-turbine</module>
         <module>suncodes-springcloud-eureka-zuul</module>
+        <module>suncodes-springcloud-config-server</module>
     </modules>
     <packaging>pom</packaging>
 

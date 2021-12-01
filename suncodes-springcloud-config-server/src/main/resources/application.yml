@@ -1,0 +1,66 @@
+server:
+  port: 3344
+
+# ssh-keygen -m PEM -t rsa -b 4096 -C "11111111@qq.com"
+spring:
+  application:
+    name:  config-server
+  cloud:
+    config:
+      server:
+        git:
+          #GitHub上面的git仓库名字
+          uri: git@github.com:suncodes/suncodes-springcloud-config.git
+          ignore-local-ssh-settings: true
+          private-key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            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
+            -----END RSA PRIVATE KEY-----
