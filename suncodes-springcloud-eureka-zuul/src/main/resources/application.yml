@@ -30,6 +30,10 @@ provider:
     ReadTimeout: 3000
     MaxTotalHttpConnections: 500
     MaxConnectionsPerHost: 100
+    #对服务实例的重试次数（除去首次访问外）。默认值为0，如果不设置，则只会有首次访问，不会有重试
+    MaxAutoRetries: 2
+    #切换到另一个实例的次数。默认值为1，如果不设置，会有一次切换
+    MaxAutoRetriesNextServer: 2
 # 禁止 Ribbon 从 eureka 中获取实例
 ribbon:
   eureka:
@@ -45,3 +49,5 @@ zuul:
     # 如果指定了 URL，则不再进行负载均衡，而是直接通过URL访问
     #p.url: /IP地址
   prefix: /scz
+  # 开启重试机制
+  retryable: true
