@@ -70,3 +70,8 @@ spring:
             a-foo:
               label: master
               profiles: dev
+
+# 加密/解密技术 对称加密公钥
+# 测试成功
+encrypt:
+  key: 123456
