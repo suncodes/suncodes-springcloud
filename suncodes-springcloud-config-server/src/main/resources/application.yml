@@ -64,3 +64,9 @@ spring:
             1tyeFXah3eCZtWaNiBr0xYMTb/7M0J0tR/P2WobDQntEpiP1AzsWZ3G1Hnlsp1Rh
             73NoXS9+Cnv/HYVecqxurFrcWgeSG60iFrhdNc2/9pvLViCAg6CD2fKXgiUV
             -----END RSA PRIVATE KEY-----
+        health:
+          # http://localhost:3344/actuator/health
+          repositories:
+            a-foo:
+              label: master
+              profiles: dev
