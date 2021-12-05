@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>suncodes-springcloud-config-server</artifactId>
+    <artifactId>suncodes-springcloud-config-client-two</artifactId>
 
     <dependencies>
 
@@ -18,22 +18,21 @@
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
 
-        <!-- springCloud Config -->
+        <!-- No spring.config.import property has been defined 问题 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
-        <!-- 用于健康检查 Web访问 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-config</artifactId>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -13,6 +13,16 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-monitor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+
         <!-- No spring.config.import property has been defined 问题 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

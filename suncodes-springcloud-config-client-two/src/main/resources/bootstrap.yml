@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-client
+    name: config-client-two
   profiles:
     active: dev
   cloud:
@@ -15,7 +15,7 @@ spring:
     username: rabbit
     password: rabbit
 server:
-  port: 3355
+  port: 3356
 # 开放指定端点
 management:
   endpoints:

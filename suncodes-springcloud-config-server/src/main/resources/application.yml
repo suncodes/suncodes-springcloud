@@ -3,6 +3,11 @@ server:
 
 # ssh-keygen -m PEM -t rsa -b 4096 -C "11111111@qq.com"
 spring:
+  rabbitmq:
+    host: ${rabbit-host}
+    port: 5672
+    username: rabbit
+    password: rabbit
   application:
     name:  config-server
   cloud:
@@ -75,3 +80,12 @@ spring:
 # 测试成功
 encrypt:
   key: 123456
+
+# 开放指定端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+rabbit-host: 192.168.6.110
