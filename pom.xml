@@ -31,6 +31,8 @@
         <module>suncodes-springcloud-zookeeper-provider-one</module>
         <module>suncodes-springcloud-zookeeper-provider-two</module>
         <module>suncodes-springcloud-zookeeper-consumer-loadbalancer</module>
+        <module>suncodes-springcloud-zookeeper-consumer-feign</module>
+        <module>suncodes-springcloud-zookeeper-api-feign</module>
     </modules>
     <packaging>pom</packaging>
 

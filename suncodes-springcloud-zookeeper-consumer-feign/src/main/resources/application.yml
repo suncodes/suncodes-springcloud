@@ -1,0 +1,19 @@
+
+server:
+  port: 80
+
+spring:
+  application:
+    name: zk-cunsumer-feign
+
+---
+spring:
+  cloud:
+    zookeeper:
+      connect-string: ${zookeeper-hostname[0]}:${zookeeper-port[0]},${zookeeper-hostname[1]}:${zookeeper-port[1]},${zookeeper-hostname[2]}:${zookeeper-port[2]}
+      discovery:
+        enabled: true
+        register: false
+
+zookeeper-hostname: [192.168.6.110,192.168.6.111,192.168.6.112]
+zookeeper-port: [2181,2181,2181]
