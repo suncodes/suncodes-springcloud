@@ -3,6 +3,7 @@ package zookeeper.consumer.loadbalancer.controller;
 import api.entities.Dept;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.zookeeper.discovery.ZookeeperDiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,14 +16,14 @@ import java.util.List;
 public class ConsumerLoadBalancerController {
 
     @Autowired
-    private DiscoveryClient client;
+    private ZookeeperDiscoveryClient client;
 
     private static String REST_URL_PREFIX = "http://localhost:8001";
 
     @PostConstruct
     public void init() {
         List<String> list = client.getServices();
-        REST_URL_PREFIX = "http://" + list.get(0);
+        REST_URL_PREFIX = "http://zookeeper-provider";
         System.out.println(REST_URL_PREFIX);
     }
 

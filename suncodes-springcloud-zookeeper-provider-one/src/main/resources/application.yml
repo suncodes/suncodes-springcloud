@@ -15,14 +15,14 @@ mybatis:
 server:
   port: 8001
 
-------
+---
 spring:
   cloud:
     zookeeper:
-      connect-string: ${eureka-hostname[0]}:${eureka-port[0]},${eureka-hostname[1]}:${eureka-port[1]},${eureka-hostname[2]}:${eureka-port[2]}
+      connect-string: ${zookeeper-hostname[0]}:${zookeeper-port[0]},${zookeeper-hostname[1]}:${zookeeper-port[1]},${zookeeper-hostname[2]}:${zookeeper-port[2]}
       discovery:
         enabled: true
         register: true
 
-zookeeper-hostname: [localhost,localhost,localhost]
-zookeeper-port: [7001,7002,7003]
+zookeeper-hostname: [192.168.6.110,192.168.6.111,192.168.6.112]
+zookeeper-port: [2181,2181,2181]
