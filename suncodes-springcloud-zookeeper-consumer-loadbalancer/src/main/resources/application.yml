@@ -1,0 +1,14 @@
+server:
+  port: 80
+
+------
+spring:
+  cloud:
+    zookeeper:
+      connect-string: ${eureka-hostname[0]}:${eureka-port[0]},${eureka-hostname[1]}:${eureka-port[1]},${eureka-hostname[2]}:${eureka-port[2]}
+      discovery:
+        enabled: true
+        register: false
+
+zookeeper-hostname: [localhost,localhost,localhost]
+zookeeper-port: [7001,7002,7003]

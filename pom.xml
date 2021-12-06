@@ -28,6 +28,9 @@
         <module>suncodes-springcloud-config-server</module>
         <module>suncodes-springcloud-config-client</module>
         <module>suncodes-springcloud-config-client-two</module>
+        <module>suncodes-springcloud-zookeeper-provider-one</module>
+        <module>suncodes-springcloud-zookeeper-provider-two</module>
+        <module>suncodes-springcloud-zookeeper-consumer-loadbalancer</module>
     </modules>
     <packaging>pom</packaging>
 

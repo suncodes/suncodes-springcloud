@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: zookeeper-provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/springcloud?serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  config-location: classpath:mybatis/SqlMapConfig.xml
+  type-aliases-package: api.entities    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml
+
+server:
+  port: 8001
+
+------
+spring:
+  cloud:
+    zookeeper:
+      connect-string: ${eureka-hostname[0]}:${eureka-port[0]},${eureka-hostname[1]}:${eureka-port[1]},${eureka-hostname[2]}:${eureka-port[2]}
+      discovery:
+        enabled: true
+        register: true
+
+zookeeper-hostname: [localhost,localhost,localhost]
+zookeeper-port: [7001,7002,7003]
