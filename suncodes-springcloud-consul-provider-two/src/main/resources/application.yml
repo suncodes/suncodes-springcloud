@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: consul-provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/springcloud2?serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  config-location: classpath:mybatis/SqlMapConfig.xml
+  type-aliases-package: api.entities    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml
+
+server:
+  port: 8002
+
+---
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        # 健康检查
+        healthCheckPath: ${management.context-path}/health
+        healthCheckInterval: 15s
+        # 实例ID
+        # 默认值：${spring.application.name}:comma,separated,profiles:${server.port}
+        instanceId: ${spring.application.name}:consul:${server.port}

@@ -1,0 +1,19 @@
+server:
+  port: 80
+
+---
+spring:
+  application:
+    name: consul-consumer-feign
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        # 健康检查
+        healthCheckPath: ${management.context-path}/health
+        healthCheckInterval: 15s
+        # 实例ID
+        # 默认值：${spring.application.name}:comma,separated,profiles:${server.port}
+        instanceId: ${spring.application.name}:consul:${server.port}
+        register: false
