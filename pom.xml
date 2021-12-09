@@ -38,6 +38,7 @@
         <module>suncodes-springcloud-consul-consumer-loadbalancer</module>
         <module>suncodes-springcloud-consul-consumer-feign</module>
         <module>suncodes-springcloud-consul-api-feign</module>
+        <module>suncodes-springcloud-eureka-client-provider-sentinel</module>
     </modules>
     <packaging>pom</packaging>
 
