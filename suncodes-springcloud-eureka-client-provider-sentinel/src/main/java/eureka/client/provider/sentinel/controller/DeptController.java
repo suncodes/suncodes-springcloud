@@ -1,6 +1,8 @@
 package eureka.client.provider.sentinel.controller;
 
 import api.entities.Dept;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
@@ -10,12 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -82,6 +79,10 @@ public class DeptController {
         return "success";
     }
 
+    /**
+     * 测试熔断降级策略：慢调用比例 RT
+     * @return
+     */
     @GetMapping("/testD")
     public String testD() {
         try {
@@ -91,6 +92,60 @@ public class DeptController {
         }
         log.info("testD 测试RT");
         return "------testD";
+    }
+
+    /**
+     * 测试熔断降级策略：异常比例
+     * @return
+     */
+    @GetMapping("/testDD")
+    public String testDD() {
+        log.info("testDD 测试 异常比例");
+        int age = 10 / 0;
+        return "------testDD";
+    }
+
+    /**
+     * 测试熔断降级策略：异常数
+     * @return
+     */
+    @GetMapping("/testDDD")
+    public String testDDD() {
+        log.info("testDDD 测试 异常数");
+        int age = 10 / 0;
+        return "------testDDD";
+    }
+
+    /**
+     * 热点参数限流测试
+     * @param p1
+     * @param p2
+     * @return
+     */
+    @GetMapping("/testHotKey")
+    public String testHotKey(@RequestParam(value = "p1",required = false) String p1,
+                             @RequestParam(value = "p2",required = false) String p2) {
+        return "------testHotKey";
+    }
+
+    @GetMapping("/testHotKey1")
+    @SentinelResource(value = "testHotKey1",blockHandler = "dealTestHotKey")
+    public String testHotKey1(@RequestParam(value = "p1",required = false) String p1,
+                             @RequestParam(value = "p2",required = false) String p2) {
+        return "------testHotKey1";
+    }
+
+    @GetMapping("/testHotKey2")
+    @SentinelResource(value = "testHotKey2",blockHandler = "dealTestHotKey")
+    public String testHotKey2(@RequestParam(value = "p1",required = false) String p1,
+                             @RequestParam(value = "p2",required = false) String p2) {
+        int age = 10/0;
+        return "------testHotKey2";
+    }
+
+    //兜底方法
+    public String dealTestHotKey (String p1, String p2, BlockException exception){
+        return "------deal_testHotKey,o(╥﹏╥)o";
     }
 
 }
