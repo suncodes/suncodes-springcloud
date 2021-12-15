@@ -1,6 +1,7 @@
 package eureka.client.consumer.loadbalancer.sentinel.controller;
 
 import api.entities.Dept;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,13 +13,6 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
- * 由于使用 @HystrixCommand(fallbackMethod = "timeOutFallbackMethod") 方式
- * 只能对单个方法进行服务降级，但是我想对当前类的所有方法进行服务降级，怎么办？
- * 需要每个方法都要写一遍吗？
- *
- * 可以在类上添加注解 @DefaultProperties(defaultFallback = "")
- * 就可以对当前类的所有方法进行处理，
- * 此时，不再需要在 @HystrixCommand 注解上使用 fallbackMethod 属性
  *
  */
 @RestController
@@ -48,8 +42,23 @@ public class ConsumerLoadBalancerController {
         return restTemplate.postForObject(REST_URL_PREFIX + "/dept/add", dept, Boolean.class);
     }
 
+    /**
+     * TODO 方式一
+     * fallback ：方法异常回调
+     * blockHandler ：限流
+     * exceptionsToIgnore ：忽略哪些异常进入fallback以及异常统计，异常原样抛出
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/consumer/dept/get/{id}")
+    @SentinelResource(value = "getId",
+            fallback = "timeOutFallbackMethod",
+            blockHandler = "blockMethod",
+            exceptionsToIgnore = IllegalArgumentException.class)
     public Dept get(@PathVariable("id") Long id) {
+        if (id < 0) {
+            throw new IllegalArgumentException ("参数非法");
+        }
         Dept dept = restTemplate.getForObject(REST_URL_PREFIX + "/dept/get/" + id, Dept.class);
         if (dept == null) {
             throw new RuntimeException("数据不存在");
@@ -80,6 +89,14 @@ public class ConsumerLoadBalancerController {
         Dept dept = new Dept();
         dept.setDeptNo(-1L);
         dept.setDeptName("我是消费者80，对付支付系统繁忙请10秒钟后再试或者自己运行出错请检查自己,(┬＿┬)");
+        dept.setDbSource("");
+        return dept;
+    }
+
+    public Dept blockMethod(@PathVariable("id") Long id) {
+        Dept dept = new Dept();
+        dept.setDeptNo(-1L);
+        dept.setDeptName("sentinel block method");
         dept.setDbSource("");
         return dept;
     }

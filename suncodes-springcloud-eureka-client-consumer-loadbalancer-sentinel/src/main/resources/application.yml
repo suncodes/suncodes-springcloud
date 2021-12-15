@@ -10,3 +10,11 @@ eureka:
 
 eureka-hostname: localhost
 eureka-port: [7001,7002,7003]
+
+#---
+#spring:
+#  cloud:
+#    sentinel:
+#      transport:
+#        port: 8719
+#        dashboard: localhost:8080
