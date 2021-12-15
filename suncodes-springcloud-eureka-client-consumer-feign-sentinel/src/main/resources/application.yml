@@ -16,10 +16,20 @@ feign:
   circuitbreaker:
     enabled: true
 
-hystrix:
-  dashboard:
-    proxy-stream-allow-list: "localhost"
-
 spring:
   application:
-    name: cunsumer-feign
+    name: cunsumer-feign-sentinel
+
+---
+spring:
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+
+#---
+##使用 feign.circuitbreaker.enabled=true 也是管用的
+#feign:
+#  sentinel:
+#    enabled: true
