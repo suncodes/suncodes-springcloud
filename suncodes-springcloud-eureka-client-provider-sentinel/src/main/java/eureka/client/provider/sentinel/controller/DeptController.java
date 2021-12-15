@@ -117,7 +117,13 @@ public class DeptController {
     }
 
     /**
-     * 热点参数限流测试
+     * 热点参数限流测试（此方法对于热点限流不生效，必须使用@SentinelResource）
+     * CommonFilter是否支持热点限流？
+     * 答案：不支持
+     * 因为CommonFilter源码里标记资源SphU.entry(String, int, EntryType),
+     * 并没有像sentinel-dubbo-adaptor里的SentinelDubboProviderFilter那样通过4个参数重载的方法
+     * SphU.entry(java.lang.String, int, EntryType, java.lang.Object[])来标记资源，
+     * 即传递接口相关的参数，因此它不能使用热点参数规则。
      * @param p1
      * @param p2
      * @return
