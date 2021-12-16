@@ -144,7 +144,7 @@ public class DeptController {
     @GetMapping("/testHotKey2")
     @SentinelResource(value = "testHotKey2",blockHandler = "dealTestHotKey")
     public String testHotKey2(@RequestParam(value = "p1",required = false) String p1,
-                             @RequestParam(value = "p2",required = false) String p2) {
+                              @RequestParam(value = "p2",required = false) String p2) {
         int age = 10/0;
         return "------testHotKey2";
     }

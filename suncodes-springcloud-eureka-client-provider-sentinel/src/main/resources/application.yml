@@ -45,3 +45,15 @@ spring:
       transport:
         port: 8719
         dashboard: localhost:8080
+
+---
+spring:
+  cloud:
+    sentinel:
+      datasource:
+        custom-flow:
+          file:
+            file: classpath:file-flow-rules.json
+            data-type: json
+            converter-class: com.alibaba.cloud.sentinel.datasource.converter.JsonConverter
+            rule-type: flow
