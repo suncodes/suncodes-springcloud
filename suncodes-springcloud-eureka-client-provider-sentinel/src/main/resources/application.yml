@@ -25,6 +25,16 @@ eureka:
     instance-id: instance-provider-8005
     ## 显示IP
     prefer-ip-address: true
+#    appname: appname
+#    metadata-map:   {
+#      "resource": "/byResource",
+#      "limitApp": "default",
+#      "grade": 1,
+#      "count": 1,
+#      "strategy": 0,
+#      "controlBehavior": 0,
+#      "clusterMode": false
+#    }
 
 eureka-hostname: localhost
 eureka-port: [7001,7002,7003]
@@ -46,14 +56,29 @@ spring:
         port: 8719
         dashboard: localhost:8080
 
----
-spring:
-  cloud:
-    sentinel:
-      datasource:
-        custom-flow:
-          file:
-            file: classpath:file-flow-rules.json
-            data-type: json
-            converter-class: com.alibaba.cloud.sentinel.datasource.converter.JsonConverter
-            rule-type: flow
+#---
+#spring:
+#  cloud:
+#    sentinel:
+#      datasource:
+#        custom-flow:
+#          file:
+#            file: classpath:file-flow-rules.json
+#            data-type: json
+#            converter-class: com.alibaba.cloud.sentinel.datasource.converter.JsonConverter
+#            rule-type: flow
+
+## eureka 的 持久化没有走通
+#---
+#spring:
+#  cloud:
+#    sentinel:
+#      datasource:
+#        custom-flow:
+#          eureka:
+#            app-id: ${eureka.instance.appname}
+#            instance-id: ${eureka.instance.instance-id}
+#            service-urls: ${eureka.client.service-url.defaultZone}
+#            data-type: json
+#            converter-class: com.alibaba.cloud.sentinel.datasource.converter.JsonConverter
+#            rule-type: flow

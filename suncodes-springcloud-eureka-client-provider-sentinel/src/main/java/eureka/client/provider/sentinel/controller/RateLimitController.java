@@ -3,13 +3,28 @@ package eureka.client.provider.sentinel.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import eureka.client.provider.sentinel.handler.CustomerBlockHandler;
+import eureka.client.provider.sentinel.persistence.MysqlRefreshableDataSource;
 import eureka.client.provider.sentinel.pojo.bo.CommonResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+
 @RestController
 public class RateLimitController {
+
+    @Autowired
+    private MysqlRefreshableDataSource mysqlRefreshableDataSource;
+
+    @PostConstruct
+    public void init() {
+        // 自定义拉取数据源
+        FlowRuleManager.register2Property(mysqlRefreshableDataSource.getProperty());
+    }
+
     @GetMapping("/byResource")
     @SentinelResource(value = "byResource", blockHandler = "handleException")
     public CommonResult byResource() {
