@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * The type Refresh controller.
+ * The type Refresh nacos.consumer.loadbalancer.controller.
  *
  */
 @RestController

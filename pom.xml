@@ -43,6 +43,9 @@
         <module>suncodes-springcloud-eureka-client-consumer-feign-sentinel</module>
         <module>suncodes-springcloud-nacos-provider-one</module>
         <module>suncodes-springcloud-nacos-provider-two</module>
+        <module>suncodes-springcloud-nacos-api-feign</module>
+        <module>suncodes-springcloud-nacos-consumer-loadbalancer</module>
+        <module>suncodes-springcloud-nacos-consumer-feign</module>
     </modules>
     <packaging>pom</packaging>
 

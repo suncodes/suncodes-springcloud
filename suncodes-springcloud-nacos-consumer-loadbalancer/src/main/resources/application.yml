@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+---
+spring:
+  application:
+    name: nacos-consumer-loadbalancer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
