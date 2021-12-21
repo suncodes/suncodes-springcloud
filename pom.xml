@@ -41,6 +41,8 @@
         <module>suncodes-springcloud-eureka-client-provider-sentinel</module>
         <module>suncodes-springcloud-eureka-client-consumer-loadbalancer-sentinel</module>
         <module>suncodes-springcloud-eureka-client-consumer-feign-sentinel</module>
+        <module>suncodes-springcloud-nacos-provider-one</module>
+        <module>suncodes-springcloud-nacos-provider-two</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -69,6 +71,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>2.4.10</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
