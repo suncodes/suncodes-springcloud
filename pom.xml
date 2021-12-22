@@ -46,6 +46,8 @@
         <module>suncodes-springcloud-nacos-api-feign</module>
         <module>suncodes-springcloud-nacos-consumer-loadbalancer</module>
         <module>suncodes-springcloud-nacos-consumer-feign</module>
+        <module>suncodes-springcloud-nacos-config-client-standalone</module>
+        <module>suncodes-springcloud-nacos-config-client-cluster</module>
     </modules>
     <packaging>pom</packaging>
 

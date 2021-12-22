@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: nacos-config-standalone
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+        group: nacos-config-standalone
+        namespace: 280153b7-f171-4293-8210-5b3931e8d099
+server:
+  port: 9111
+
+# namespace > group > yml
+
+---
+spring:
+  profiles:
+    active: dev
+
+# ${spring.application.name}-${profile}.${file-extension:properties}
+# 在设置 active 之后，也可以获取 nacos-config-standalone.yml 文件中的配置，和 SpringCloud Config 规则一致
