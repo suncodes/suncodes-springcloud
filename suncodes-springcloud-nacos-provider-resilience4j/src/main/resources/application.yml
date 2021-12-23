@@ -1,0 +1,102 @@
+spring:
+  application:
+    name: nacos-provider
+  datasource:
+    url: jdbc:mysql://localhost:3306/springcloud3?serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  config-location: classpath:mybatis/SqlMapConfig.xml
+  type-aliases-package: api.entities    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml
+
+server:
+  port: 8003
+
+---
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+---
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failureRateThreshold: 30 #失败请求百分比，超过这个比例，CircuitBreaker变为OPEN状态
+        slidingWindowSize: 10 #滑动窗口的大小，配置COUNT_BASED,表示10个请求，配置TIME_BASED表示10秒
+        minimumNumberOfCalls: 5 #最小请求个数，只有在滑动窗口内，请求个数达到这个个数，才会触发CircuitBreader对于断路器的判断
+        slidingWindowType: TIME_BASED #滑动窗口的类型
+        permittedNumberOfCallsInHalfOpenState: 3 #当CircuitBreaker处于HALF_OPEN状态的时候，允许通过的请求个数
+        automaticTransitionFromOpenToHalfOpenEnabled: true #设置true，表示自动从OPEN变成HALF_OPEN，即使没有请求过来
+        waitDurationInOpenState: 2s #从OPEN到HALF_OPEN状态需要等待的时间
+#        recordExceptions: #异常名单
+#        - java.lang.Exception
+    instances:
+      backendA:
+        baseConfig: default #熔断器backendA，继承默认配置default
+      backendB:
+        failureRateThreshold: 50 #失败请求百分比，超过这个比例，CircuitBreaker变为OPEN状态
+        slowCallDurationThreshold: 2s #慢调用时间阈值，高于这个阈值的呼叫视为慢调用，并增加慢调用比例。
+        slowCallRateThreshold: 30 #慢调用百分比阈值，断路器把调用时间大于slowCallDurationThreshold，视为慢调用，当慢调用比例大于阈值，断路器打开，并进行服务降级
+        slidingWindowSize: 10
+        slidingWindowType: TIME_BASED
+        minimumNumberOfCalls: 2
+        permittedNumberOfCallsInHalfOpenState: 2
+        waitDurationInOpenState: 120s #从OPEN到HALF_OPEN状态需要等待的时间
+
+---
+resilience4j:
+  bulkhead:
+    configs:
+      default:
+        maxConcurrentCalls: 5 # 隔离允许并发线程执行的最大数量
+        maxWaitDuration: 20ms # 当达到并发调用数量时，新的线程的阻塞时间
+    instances:
+      backendA:
+        baseConfig: default
+      backendB:
+        maxWaitDuration: 10ms
+        maxConcurrentCalls: 20
+
+---
+resilience4j:
+  thread-pool-bulkhead:
+    configs:
+      default:
+        maxThreadPoolSize: 4 # 最大线程池大小
+        coreThreadPoolSize: 2 # 核心线程池大小
+        queueCapacity: 2 # 队列容量
+    instances:
+      backendC:
+        baseConfig: default
+      backendD:
+        maxThreadPoolSize: 1
+        coreThreadPoolSize: 1
+        queueCapacity: 1
+
+---
+resilience4j:
+  ratelimiter:
+    configs:
+      default:
+        timeoutDuration: 5 # 线程等待权限的默认等待时间
+        limitRefreshPeriod: 1s # 限流器每隔1s刷新一次，将允许处理的最大请求重置为2
+        limitForPeriod: 2 #在一个刷新周期内，允许执行的最大请求数
+    instances:
+      backendE:
+        baseConfig: default
+      backendF:
+        timeoutDuration: 5
+        limitRefreshPeriod: 1s
+        limitForPeriod: 5
+
