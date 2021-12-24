@@ -1,0 +1,42 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: eureka-gateway
+
+#客户端注册进eureka服务列表内
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka-hostname}:${eureka-port[0]}/eureka/,http://${eureka-hostname}:${eureka-port[1]}/eureka/,http://${eureka-hostname}:${eureka-port[2]}/eureka/
+  instance:
+    instance-id: eureka-gateway-9527
+    prefer-ip-address: true
+
+eureka-hostname: localhost
+eureka-port: [7001,7002,7003]
+
+---
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: provider-8001
+#          uri: http://localhost:8001
+#          predicates:
+#            - Path=/dept/**
+#        - id: baidu
+#          uri: http://www.baidu.com
+#          predicates:
+#          - Path=/**
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: provider-800X
+          uri: lb://provider
+          predicates:
+            - Path=/dept/**

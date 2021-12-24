@@ -49,6 +49,7 @@
         <module>suncodes-springcloud-nacos-config-client-standalone</module>
         <module>suncodes-springcloud-nacos-config-client-cluster</module>
         <module>suncodes-springcloud-nacos-provider-resilience4j</module>
+        <module>suncodes-springcloud-eureka-gateway</module>
     </modules>
     <packaging>pom</packaging>
 
