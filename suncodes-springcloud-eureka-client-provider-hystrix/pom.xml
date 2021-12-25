@@ -17,14 +17,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-            <version>2.2.10.RELEASE</version>
         </dependency>
 
         <!-- 使用 hystrix 当做断路器-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-            <version>2.2.10.RELEASE</version>
         </dependency>
 
         <dependency>
