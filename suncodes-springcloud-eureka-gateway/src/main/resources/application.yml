@@ -40,3 +40,47 @@ spring:
           uri: lb://provider
           predicates:
             - Path=/dept/**
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: provider-8001-01
+          uri: http://localhost:8001
+          predicates:
+            - Path=/provider01/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: providerCircuitBreaker-01
+                fallbackUri: forward:/provider-fallback
+#            - RewritePath=/provider01, /yml
+#            - RewritePath=/provider01/.*, /yml/.*
+            - RewritePath=/provider01/?(?<segment>.*), /yml/$\{segment}
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        failureRateThreshold: 30 #失败请求百分比，超过这个比例，CircuitBreaker变为OPEN状态
+        slidingWindowSize: 10 #滑动窗口的大小，配置COUNT_BASED,表示10个请求，配置TIME_BASED表示10秒
+        minimumNumberOfCalls: 5 #最小请求个数，只有在滑动窗口内，请求个数达到这个个数，才会触发CircuitBreader对于断路器的判断
+        slidingWindowType: TIME_BASED #滑动窗口的类型
+        permittedNumberOfCallsInHalfOpenState: 3 #当CircuitBreaker处于HALF_OPEN状态的时候，允许通过的请求个数
+        automaticTransitionFromOpenToHalfOpenEnabled: true #设置true，表示自动从OPEN变成HALF_OPEN，即使没有请求过来
+        waitDurationInOpenState: 2s #从OPEN到HALF_OPEN状态需要等待的时间
+    #        recordExceptions: #异常名单
+    #        - java.lang.Exception
+    instances:
+      backendA:
+        baseConfig: default #熔断器backendA，继承默认配置default
+      backendB:
+        failureRateThreshold: 50 #失败请求百分比，超过这个比例，CircuitBreaker变为OPEN状态
+        slowCallDurationThreshold: 2s #慢调用时间阈值，高于这个阈值的呼叫视为慢调用，并增加慢调用比例。
+        slowCallRateThreshold: 30 #慢调用百分比阈值，断路器把调用时间大于slowCallDurationThreshold，视为慢调用，当慢调用比例大于阈值，断路器打开，并进行服务降级
+        slidingWindowSize: 10
+        slidingWindowType: TIME_BASED
+        minimumNumberOfCalls: 2
+        permittedNumberOfCallsInHalfOpenState: 2
+        waitDurationInOpenState: 120s #从OPEN到HALF_OPEN状态需要等待的时间

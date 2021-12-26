@@ -74,4 +74,22 @@ public class DeptController {
         }
         return "success";
     }
+
+    @RequestMapping(value = "/yml/get/{id}", method = RequestMethod.GET)
+    public Dept ymlGet(@PathVariable("id") Long id) {
+        Dept dept = service.get(id);
+        if (dept == null) {
+            throw new RuntimeException("没有查询到数据");
+        }
+        return dept;
+    }
+
+    @RequestMapping(value = "/java/get/{id}", method = RequestMethod.GET)
+    public Dept javaGet(@PathVariable("id") Long id) {
+        Dept dept = service.get(id);
+        if (dept == null) {
+            throw new RuntimeException("没有查询到数据");
+        }
+        return dept;
+    }
 }

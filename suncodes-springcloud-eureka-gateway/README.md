@@ -13,7 +13,7 @@
 
 所有集成组件名称：
 ```text
-【hystrix step 1】
+【hystrix step 1】（在 gateway 高版本 中 hystrix 已经被移除了，既然移除了，就算了，之前还有 HystrixGatewayFilterFactory 呢。）
 【resilience4j step 1】
 【sentinel step 1】
 【redis step 1】
