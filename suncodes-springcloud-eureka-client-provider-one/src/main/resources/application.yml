@@ -2,7 +2,7 @@ spring:
   application:
     name: provider
   datasource:
-    url: jdbc:mysql://localhost:3306/springcloud?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/springcloud?serverTimezone=UTC&characterEncoding=utf8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
