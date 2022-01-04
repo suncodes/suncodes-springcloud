@@ -5,6 +5,7 @@ package eureka.gateway;
 //import com.netflix.hystrix.HystrixCommandProperties;
 import com.google.common.base.Function;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
@@ -102,6 +103,22 @@ public class GatewayConfig {
 //                .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
                 .circuitBreakerConfig(circuitBreakerConfig)
                 .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build())
-                .build(), "providerCircuitBreaker-02");
+                .build(), "providerCircuitBreaker-02", "provider-8001-02");
     }
+
+    @Bean
+    public ReactiveResilience4JCircuitBreakerFactory reactiveResilience4JCircuitBreakerFactory(
+            CircuitBreakerRegistry circuitBreakerRegistry) {
+        ReactiveResilience4JCircuitBreakerFactory reactiveResilience4JCircuitBreakerFactory = new ReactiveResilience4JCircuitBreakerFactory();
+        reactiveResilience4JCircuitBreakerFactory.configureCircuitBreakerRegistry(circuitBreakerRegistry);
+
+        TimeLimiterConfig timeLimiterConfig = TimeLimiterConfig.custom()
+                .timeoutDuration(Duration.ofSeconds(1)).cancelRunningFuture(true)
+                .build();
+        reactiveResilience4JCircuitBreakerFactory.configure(builder -> builder.timeLimiterConfig(timeLimiterConfig).build(),
+                "backendA", "backendB");
+        return reactiveResilience4JCircuitBreakerFactory;
+    }
+
+
 }

@@ -109,3 +109,34 @@ spring:
 #    requestVolumeThreshold: 10     #熔断器失败的个数，进入熔断器的请求达到1000时服务降级（之后的请求直接进入熔断器）
 #    sleepWindowInMilliseconds: 5000  #所以此配置的作用是指定熔断器打开后多长时间内允许一次请求尝试执行，官方默认配置为5秒。
 #    errorThresholdPercentage: 50     #窗口时间内超过50%的请求失败后就会打开熔断器将后续请求快速失败掉,默认配置为50
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      register-health-indicator: true
+      sliding-window-size: 10
+      minimum-number-of-calls: 5
+      permitted-number-of-calls-in-half-open-state: 3
+      automatic-transition-from-open-to-half-open-enabled: true
+      wait-duration-in-open-state: 10s
+      failure-rate-threshold: 50
+      slow-call-rate-threshold: 50
+      slow-call-duration-threshold: 60000ms
+      recordExceptions:
+      - java.lang.IllegalArgumentException
+      - org.springframework.web.client.HttpServerErrorException
+      - java.io.IOException
+      - java.lang.Exception
+      - java.net.UnknownHostException
+      - org.springframework.web.reactive.function.client.WebClientResponseException
+      - org.springframework.web.reactive.function.client.WebClientResponseException$NotFound
+      - org.springframework.web.client.HttpClientErrorException$NotFound
+      - java.net.ConnectException
+      - io.netty.channel.AbstractChannel$AnnotatedConnectException
+
+
+      ignoreExceptions:
+      - java.lang.IllegalStateException
+  instances:
+    backendA:
+      baseConfig: default
