@@ -98,6 +98,7 @@ spring:
 #        - name: Hystrix
         - name: CircuitBreaker
           args:
+            # 此名称和自定义的配置id要相同
             name: providerCircuitBreaker-01
             fallbackUri: forward:/provider-fallback
         #            - RewritePath=/provider01, /yml
@@ -140,3 +141,13 @@ resilience4j.circuitbreaker:
   instances:
     backendA:
       baseConfig: default
+logging:
+  level:
+    io.github.resilience4j: DEBUG
+
+---
+#spring:
+#  cloud:
+#    circuitbreaker:
+#      resilience4j:
+#        enabled: false
