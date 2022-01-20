@@ -151,3 +151,32 @@ logging:
 #    circuitbreaker:
 #      resilience4j:
 #        enabled: false
+
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        # Add your routes here.
+        - id: aliyun_route
+          uri: https://www.aliyun.com/
+          predicates:
+            - Path=/product/**
+        - id: httpbin_route
+          uri: https://httpbin.org
+          predicates:
+            - Path=/httpbin/**
+          filters:
+            - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
+---
+spring:
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+
+---
+spring:
+  main:
+    allow-bean-definition-overriding: true
