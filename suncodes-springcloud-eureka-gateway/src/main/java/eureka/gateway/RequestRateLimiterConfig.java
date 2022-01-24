@@ -12,14 +12,14 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class RequestRateLimiterConfig {
 
-//    @Bean
-//    public KeyResolver ipAddressKeyResolver() {
-//        return exchange -> {
-//            String hostAddress = exchange.getRequest().getRemoteAddress().getAddress().getHostAddress();
-//            log.info("ipAddressKeyResolver 限流规则 ip: {}", hostAddress);
-//            return Mono.just(hostAddress);
-//        };
-//    }
+    @Bean
+    public KeyResolver ipAddressKeyResolver() {
+        return exchange -> {
+            String hostAddress = exchange.getRequest().getRemoteAddress().getAddress().getHostAddress();
+            log.info("ipAddressKeyResolver 限流规则 ip: {}", hostAddress);
+            return Mono.just(hostAddress);
+        };
+    }
 
 //    @Bean
 //    public KeyResolver pathKeyResolver() {

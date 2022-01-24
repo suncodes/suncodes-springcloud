@@ -188,9 +188,9 @@ spring:
       # 默认情况下，如果KeyResolver 没有获取到key，请求将被拒绝。
       # 设置为 false 时，请求将不被拒绝
       # 为了演示自定义的默认 KeyResolver，注释掉，只有当使用系统默认的PrincipalNameKeyResolver时，才开启。
-      filter:
-        request-rate-limiter:
-          deny-empty-key: false
+#      filter:
+#        request-rate-limiter:
+#          deny-empty-key: false
 
 
 ---
