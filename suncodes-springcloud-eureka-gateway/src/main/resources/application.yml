@@ -85,6 +85,7 @@ spring:
 #        permittedNumberOfCallsInHalfOpenState: 2
 #        waitDurationInOpenState: 120s #从OPEN到HALF_OPEN状态需要等待的时间
 
+# =========== CircuitBreaker start =============
 ---
 spring:
   cloud:
@@ -145,6 +146,7 @@ logging:
   level:
     io.github.resilience4j: DEBUG
 
+# =========== CircuitBreaker end =============
 ---
 #spring:
 #  cloud:
@@ -152,6 +154,8 @@ logging:
 #      resilience4j:
 #        enabled: false
 
+
+# =========== Sentinel Rate Limiter start =============
 ---
 spring:
   cloud:
@@ -168,6 +172,27 @@ spring:
             - Path=/httpbin/**
           filters:
             - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
+        # =========== Request Rate Limiter start =============
+        - id: request_rate_limiter_route
+          uri: https://httpbin.org
+          predicates:
+            - Path=/ratea/**
+          filters:
+            - RewritePath=/ratea/(?<segment>.*), /$\{segment}
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
+        # =========== Request Rate Limiter start =============
+
+      # 默认情况下，如果KeyResolver 没有获取到key，请求将被拒绝。
+      # 设置为 false 时，请求将不被拒绝
+      # 为了演示自定义的默认 KeyResolver，注释掉，只有当使用系统默认的PrincipalNameKeyResolver时，才开启。
+      filter:
+        request-rate-limiter:
+          deny-empty-key: false
+
+
 ---
 spring:
   cloud:
@@ -180,3 +205,16 @@ spring:
 spring:
   main:
     allow-bean-definition-overriding: true
+
+# =========== Sentinel Rate Limiter end =============
+
+# =========== Request Rate Limiter start =============
+---
+spring:
+  redis:
+    connect-timeout: 2s
+    host: localhost
+    port: 6379
+    timeout: 500ms
+
+# =========== Request Rate Limiter end =============
