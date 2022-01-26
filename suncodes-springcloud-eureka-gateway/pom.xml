@@ -11,6 +11,10 @@
 
     <artifactId>suncodes-springcloud-eureka-gateway</artifactId>
 
+    <properties>
+        <bucket4j.version>7.0.0</bucket4j.version>
+    </properties>
+
     <dependencies>
 
         <!-- 熔断限流 start -->
@@ -47,6 +51,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
+
+        <!-- 注意：引入 bucket4j 是为了自定义 RateLimiter 使用 -->
+        <!-- InMemoryRateLimiter 类 -->
+        <!-- https://mvnrepository.com/artifact/com.github.vladimir-bukhtoyarov/bucket4j-core -->
+        <dependency>
+            <groupId>com.github.vladimir-bukhtoyarov</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>${bucket4j.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/bucket4j-core-7.0.0.jar</systemPath>
+        </dependency>
+
         <!-- RateLimiter -->
 
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-gateway -->

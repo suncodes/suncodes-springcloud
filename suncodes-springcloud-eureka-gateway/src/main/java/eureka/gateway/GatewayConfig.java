@@ -124,6 +124,13 @@ public class GatewayConfig {
 //        return reactiveResilience4JCircuitBreakerFactory;
 //    }
 
+    /**
+     *
+     * http://localhost:9527/provider02/get/1111
+     *
+     * @param builder
+     * @return
+     */
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()

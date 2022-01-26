@@ -91,6 +91,7 @@ spring:
   cloud:
     gateway:
       routes:
+      # http://localhost:9527/provider01/get/1111
       - id: provider-8001-01
         uri: http://localhost:8001
         predicates:
@@ -166,6 +167,7 @@ spring:
           uri: https://www.aliyun.com/
           predicates:
             - Path=/product/**
+        # http://localhost:9527/httpbin/json
         - id: httpbin_route
           uri: https://httpbin.org
           predicates:
@@ -173,6 +175,7 @@ spring:
           filters:
             - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
         # =========== Request Rate Limiter start =============
+        # http://localhost:9527/ratea/json
         - id: request_rate_limiter_route
           uri: https://httpbin.org
           predicates:
@@ -183,6 +186,28 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 1
                 redis-rate-limiter.burstCapacity: 1
+                key-resolver: "#{@pathKeyResolver}"
+        # http://localhost:9527/rate3/json
+        - id: request_rate_limiter_route3
+          uri: https://httpbin.org
+          predicates:
+          - Path=/rate3/**
+          filters:
+          - RewritePath=/rate3/(?<segment>.*), /$\{segment}
+          - name: RequestRateLimiter
+            args:
+              rate-limiter: "#{@myRateLimiter}"
+              key-resolver: "#{@pathKeyResolver}"
+        - id: request_rate_limiter_route4
+          uri: https://httpbin.org
+          predicates:
+          - Path=/rate4/**
+          filters:
+          - RewritePath=/rate4/(?<segment>.*), /$\{segment}
+          - name: RequestRateLimiter
+            args:
+              rate-limiter: "#{@inMemoryRateLimiter}"
+              key-resolver: "#{@pathKeyResolver}"
         # =========== Request Rate Limiter start =============
 
       # 默认情况下，如果KeyResolver 没有获取到key，请求将被拒绝。
