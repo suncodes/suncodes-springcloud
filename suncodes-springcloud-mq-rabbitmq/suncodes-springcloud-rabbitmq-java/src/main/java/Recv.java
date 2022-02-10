@@ -1,9 +1,11 @@
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 public class Recv {
 
@@ -20,7 +22,13 @@ public class Recv {
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-            System.out.println(" [x] Received '" + message + "'");
+            System.out.println(" [" + consumerTag + "] Received '" + message + "'");
+
+            AMQP.BasicProperties properties = delivery.getProperties();
+            String appId = properties.getAppId();
+            Map<String, Object> headers = properties.getHeaders();
+            System.out.println(" [" + consumerTag + "] Received '" + appId + "'");
+            System.out.println(" [" + consumerTag + "] Received '" + headers + "'");
         };
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });
     }
