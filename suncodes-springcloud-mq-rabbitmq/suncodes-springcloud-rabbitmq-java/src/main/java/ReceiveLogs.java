@@ -3,6 +3,12 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
+/**
+ * 运行：
+ * （1）运行 ReceiveLogs
+ * （2）运行 ReceiveLogs
+ * （3）运行 EmitLog
+ */
 public class ReceiveLogs {
     private static final String EXCHANGE_NAME = "logs";
 
@@ -13,6 +19,7 @@ public class ReceiveLogs {
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        // 临时队列：非持久化，独占，自动删除
         String queueName = channel.queueDeclare().getQueue();
         channel.queueBind(queueName, EXCHANGE_NAME, "");
 
