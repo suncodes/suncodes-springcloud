@@ -21,5 +21,7 @@ public class RabbitMQService {
 //
 ////        Binding binding = new Binding()
 //        rabbitTemplate.convertAndSend();
+
+        return null;
     }
 }
