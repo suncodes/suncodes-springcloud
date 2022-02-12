@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: rabbitmq-spring
+  rabbitmq:
+    host: localhost
+    port: 5671
+    username: guest
+    password: guest
